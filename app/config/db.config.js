@@ -1,17 +1,24 @@
-const mysql = require('mysql2');
-const db = mysql.createConnection({
-    host: '34.124.178.40',
-    user: 'root',
-    password: 'bscs2a',
-    database: 'csfe3a'
+var mysql = require("mysql2");
+
+var hostname = "v1k.h.filess.io";
+var database = "csfe_grewuseful";
+var port = "3307";
+var username = "csfe_grewuseful";
+var password = "8d23186fde00076490e6432efbde83a5254e802f";
+
+var con = mysql.createConnection({
+  host: hostname,
+  user: username,
+  password,
+  database,
+  port,
 });
 
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL:', err);
-    } else {
-        console.log('Connected to MySQL successfully');
-    }
+con.connect(function (err) {
+  if (err) throw err;
+  console.log("Connected!");
 });
 
-module.exports = db;
+con.query("SELECT 1+1").on("result", function (row) {
+  console.log(row);
+});
