@@ -1,11 +1,11 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const db = require('../config/db.config');
-const util = require('util'); // Import 'util' module for promisify
+const { promisify } = require('util'); // Import promisify from util
 const router = express.Router();
 
 // Promisify the execute function
-const executeQuery = util.promisify(db.execute).bind(db);
+const executeQuery = promisify(db.execute).bind(db);
 
 router.post('/register', async (req, res) => {
     try {
