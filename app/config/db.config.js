@@ -1,24 +1,17 @@
 const mysql = require('mysql2');
-
-// Create a connection pool
-const pool = mysql.createPool({
-  connectionLimit: 10,
-  host: '34.124.178.40',
-  user: 'task-manager24',
-  password: 'bscs2a',
-  database: 'csfe3a'
+const db = mysql.createConnection({
+    host: 'pwi.h.filess.io',
+    user: 'csfe_selection',
+    password: 'a29f2e99888908b433e6dc0c79df6a7cfb4381e9',
+    database: 'csfe_selection'
 });
 
-// Get a connection from the pool
-const db = pool.promise();
-
-db.getConnection((err, connection) => {
-  if (err) {
-    console.error('Error connecting to MySQL:', err);
-    return;
-  }
-  console.log('Connected to MySQL successfully');
-  connection.release(); // Release the connection back to the pool
+db.connect((err) => {
+    if (err) {
+        console.error('Error connecting to MySQL:', err);
+    } else {
+        console.log('Connected to MySQL successfully');
+    }
 });
 
 module.exports = db;
