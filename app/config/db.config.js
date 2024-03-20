@@ -1,9 +1,9 @@
 const mysql = require('mysql2');
 const db = mysql.createConnection({
-    host: 'pwi.h.filess.io',
-    user: 'csfe_selection',
-    password: 'a29f2e99888908b433e6dc0c79df6a7cfb4381e9',
-    database: 'csfe_selection'
+    host: '89.116.192.127',
+    user: 'u672161143_bwisit',
+    password: 'Bwisit1.',
+    database: 'u672161143_bwisit'
 });
 
 db.connect((err) => {
