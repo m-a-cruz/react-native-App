@@ -7,6 +7,7 @@ const loginRoute = require('./app/routes/login');
 const categoryRoute = require('./app/routes/category');
 const taskRoute = require('./app/routes/task');
 const usersRoute = require('./app/routes/users');
+const rolesRoute = require('./app/routes/roles');
 const app = express();
 const PORT = process.env.PORT||3000;
 
@@ -33,6 +34,13 @@ app.get('/task/:id', authenticateToken, taskRoute);
 app.get('/tasks', authenticateToken, taskRoute);
 app.put('/task/:id', authenticateToken, taskRoute);
 app.delete('/task/:id', authenticateToken, taskRoute);
+
+//ROLES ROUTES
+app.post('/role', authenticateToken, rolesRoute);
+app.get('/role/:id', authenticateToken, rolesRoute);
+app.get('/roles', authenticateToken, rolesRoute);
+app.put('/role/:id', authenticateToken, rolesRoute);
+app.delete('/role/:id', authenticateToken, rolesRoute);
 
 
 app.listen(PORT, () => {
