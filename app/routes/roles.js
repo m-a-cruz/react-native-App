@@ -9,6 +9,18 @@ router.post('/role', authenticateToken, async (req, res) => {
     const {role_code, role_description} = req.body;
     if(!role_code || !role_description) {
         return res.status(400).send({ error: true, message: 'Please provide proper role_code and role_description'});
+    }const express = require('express');
+const db = require('../config/db.config');
+const bcrypt = require('bcrypt');
+const authenticateToken = require('../middleware/auth.config');
+const router = express.Router();
+});
+
+// CREATE ROLE
+router.post('/role', authenticateToken, async (req, res) => {
+    const {role_code, role_description} = req.body;
+    if(!role_code || !role_description) {
+        return res.status(400).send({ error: true, message: 'Please provide proper role_code and role_description'});
     }
     try{
         db.query('INSERT INTO roles (role_code, role_description) VALUES (?, ?)', [role_code, role_description], (err, result, fields) => {
@@ -105,3 +117,5 @@ router.delete('/role/:id', authenticateToken, (req, res) => {
         res.status(500).json({ error: 'Internal Server Error'});
     }
 });
+
+module.exports = router;
