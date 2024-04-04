@@ -45,6 +45,7 @@ router.get('/user/:id', authenticateToken, (req, res) => {
 //UPDATE USER
 router.put('/user/:id', authenticateToken, async (req, res) => {
     let user_id = req.params.id;
+<<<<<<< HEAD
     const {name, email, username, password, role_id, status_id} = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     if(!user_id || !name || !email || !username || !password || !role_id || !status_id) {
@@ -52,6 +53,15 @@ router.put('/user/:id', authenticateToken, async (req, res) => {
     }
     try {
         db.query('UPDATE users SET name = ?, email = ?, username = ?, password = ?, role_id = ?, status_id = ? WHERE id = ?', [name, email, username, hashedPassword, role_id, status_id, user_id], (err, result, fields) => {
+=======
+    const {name, email, username, password, role_id} = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    if(!user_id || !name || !email || !username || !password || !role_id) {
+        return res.status(400).send({ error: user, message: 'Please provide name, username and password'});
+    }
+    try {
+        db.query('UPDATE users SET name = ?, email = ?, username = ?, password = ?, role_id = ? WHERE id = ?', [name, email, username, hashedPassword, role_id, user_id], (err, result, fields) => {
+>>>>>>> 8ae61ab5df30ab94c7cb67fdba01d46c56f7c8fc
             if (err) {
                 console.error('Error updating item:', err);
                 res.status(500).json({ message: 'Internal Server Error'});
