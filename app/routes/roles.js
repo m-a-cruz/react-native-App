@@ -118,8 +118,4 @@ router.delete('/role/:id', authenticateToken, (req, res) => {
     }
 });
 
-<<<<<<< HEAD
 module.exports = router;
-=======
-module.exports = router;
->>>>>>> 8ae61ab5df30ab94c7cb67fdba01d46c56f7c8fc
