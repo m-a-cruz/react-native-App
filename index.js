@@ -8,10 +8,7 @@ const categoryRoute = require('./app/routes/category');
 const taskRoute = require('./app/routes/task');
 const usersRoute = require('./app/routes/users');
 const rolesRoute = require('./app/routes/roles');
-<<<<<<< HEAD
 const statusRoute = require('./app/routes/status');
-=======
->>>>>>> 8ae61ab5df30ab94c7cb67fdba01d46c56f7c8fc
 const app = express();
 const PORT = process.env.PORT||3000;
 
@@ -46,14 +43,11 @@ app.get('/roles', authenticateToken, rolesRoute);
 app.put('/role/:id', authenticateToken, rolesRoute);
 app.delete('/role/:id', authenticateToken, rolesRoute);
 
-<<<<<<< HEAD
 //STATUS ROUTES
 app.get('/status', authenticateToken, statusRoute);
 app.get('/status/:id', authenticateToken, statusRoute);
 
 
-=======
->>>>>>> 8ae61ab5df30ab94c7cb67fdba01d46c56f7c8fc
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
