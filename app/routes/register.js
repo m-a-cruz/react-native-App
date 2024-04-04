@@ -5,19 +5,11 @@ const router = express.Router();
 
 router.post('/register', async (req, res) => {
     try{
-<<<<<<< HEAD
         const {name, email, username, password, role_id, status_id} = req.body;
         const hashedPassword = await bcrypt.hashSync(password, 10);
 
         const insertUserQuery = 'INSERT INTO users (name, email, username, password, role_id, status_id) VALUES (?, ?, ?, ?, ?, ?)';
         await db.promise().execute(insertUserQuery, [name, email, username, hashedPassword, role_id, status_id]);
-=======
-        const {name, email, username, password, role_id} = req.body;
-        const hashedPassword = await bcrypt.hashSync(password, 10);
-
-        const insertUserQuery = 'INSERT INTO users (name, email, username, password, role_id) VALUES (?, ?, ?, ?, ?)';
-        await db.promise().execute(insertUserQuery, [name, email, username, hashedPassword, role_id]);
->>>>>>> 8ae61ab5df30ab94c7cb67fdba01d46c56f7c8fc
 
         res.status(201).json({message: 'User created successfully'});
     } catch (error) {
