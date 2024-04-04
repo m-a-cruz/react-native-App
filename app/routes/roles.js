@@ -4,14 +4,26 @@ const bcrypt = require('bcrypt');
 const authenticateToken = require('../middleware/auth.config');
 const router = express.Router();
 
-//CREATE TASK
-router.post('/task', authenticateToken, async (req, res) => {
-    const {description, user_id, category_id} = req.body;
-    if(!description || !user_id || !category_id) {
-        return res.status(400).send({ error: true, message: 'Please provide proper description, user_id and category_id'});
+// CREATE ROLE
+router.post('/role', authenticateToken, async (req, res) => {
+    const {role_code, role_description} = req.body;
+    if(!role_code || !role_description) {
+        return res.status(400).send({ error: true, message: 'Please provide proper role_code and role_description'});
+    }const express = require('express');
+const db = require('../config/db.config');
+const bcrypt = require('bcrypt');
+const authenticateToken = require('../middleware/auth.config');
+const router = express.Router();
+});
+
+// CREATE ROLE
+router.post('/role', authenticateToken, async (req, res) => {
+    const {role_code, role_description} = req.body;
+    if(!role_code || !role_description) {
+        return res.status(400).send({ error: true, message: 'Please provide proper role_code and role_description'});
     }
     try{
-        db.query('INSERT INTO tasks (description, user_id, category_id) VALUES (?, ?, ?)', [description, user_id, category_id], (err, result, fields) => {
+        db.query('INSERT INTO roles (role_code, role_description) VALUES (?, ?)', [role_code, role_description], (err, result, fields) => {
             if (err) {
                 console.error('Error creating item:', err);
                 res.status(500).json({ message: 'Internal Server Error'});
@@ -20,19 +32,19 @@ router.post('/task', authenticateToken, async (req, res) => {
             }
         })
     }catch (error) {
-        console.error('Error creating task:', error);
+        console.error('Error creating role:', error);
         res.status(500).json({ error: 'Internal Server Error'});
     }
 });
 
-//GET ONE TASK
-router.get('/task/:id', authenticateToken, (req, res) => {
-    let task_id = req.params.id;
-    if (!task_id) {
-        return res.status(400).send({ error: true, message: 'Please provide task_id'});
+//GET ONE ROLE
+router.get('/role/:id', authenticateToken, (req, res) => {
+    let role_id = req.params.id;
+    if (!role_id) {
+        return res.status(400).send({ error: true, message: 'Please provide role_id'});
     }
     try {
-        db.query('SELECT * FROM tasks WHERE id = ?', task_id, (err, result) => {
+        db.query('SELECT * FROM roles WHERE id = ?', role_id, (err, result) => {
             if (err) {
                 console.error('Error fetching items:', err);
                 res.status(500).json({ message: 'Internal Server Error'});
@@ -46,10 +58,10 @@ router.get('/task/:id', authenticateToken, (req, res) => {
     }
 });
 
-//GET ALL TASKS
-router.get('/tasks', authenticateToken, (req, res) => {
+//GET ALL ROLES
+router.get('/roles', authenticateToken, (req, res) => {
     try {
-        db.query('SELECT * FROM tasks', (err, result) => {
+        db.query('SELECT * FROM roles', (err, result) => {
             if (err) {
                 console.error('Error fetching items:', err);
                 res.status(500).json({ message: 'Internal Server Error'});
@@ -63,15 +75,15 @@ router.get('/tasks', authenticateToken, (req, res) => {
     }
 });
 
-//UPDATE TASK
-router.put('/task/:id', authenticateToken, async (req, res) => {
-    let task_id = req.params.id;
-    const {description, user_id, category_id} = req.body;
-    if(!task_id || !description || !user_id || !category_id) {
-        return res.status(400).send({ error: user, message: 'Please provide proper description, user_id and category_id'});
+//UPDATE ROLE
+router.put('/role/:id', authenticateToken, async (req, res) => {
+    let role_id = req.params.id;
+    const {role_code, role_description} = req.body;
+    if(!role_code || !role_description) {
+        return res.status(400).send({ error: user, message: 'Please provide proper role_code and role_description'});
     }
     try{
-        db.query('UPDATE tasks SET description = ?, user_id = ?, category_id = ? WHERE id = ?', [description, user_id, category_id, task_id], (err, result, fields) => {
+        db.query('UPDATE roles SET role_code = ?, role_description = ? WHERE id = ?', [role_code, role_description, role_id], (err, result, fields) => {
             if (err) {
                 console.error('Error updating item:', err);
                 res.status(500).json({ message: 'Internal Server Error'});
@@ -86,13 +98,13 @@ router.put('/task/:id', authenticateToken, async (req, res) => {
 });
 
 //DELETE ROLE
-router.delete('/task/:id', authenticateToken, (req, res) => {
-    let task_id = req.params.id;
-    if (!task_id) {
-        return res.status(400).send({ error: true, message: 'Please provide correct task_id'});
+router.delete('/role/:id', authenticateToken, (req, res) => {
+    let role_id = req.params.id;
+    if (!role_id) {
+        return res.status(400).send({ error: true, message: 'Please provide correct role_id'});
     }
     try {
-        db.query('DELETE FROM tasks WHERE id = ?', task_id, (err, result, fields) => {
+        db.query('DELETE FROM roles WHERE id = ?', role_id, (err, result, fields) => {
             if(err) {
                 console.error('Error deleteing item:', err);
                 res.status(500).json({ message: 'Internal Server Error'});
