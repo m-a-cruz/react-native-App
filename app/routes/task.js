@@ -6,12 +6,12 @@ const router = express.Router();
 
 //CREATE TASK
 router.post('/task', authenticateToken, async (req, res) => {
-    const {title, description, user_id, category_id} = req.body;
-    if(!title || !description || !user_id || !category_id) {
-        return res.status(400).send({ error: true, message: 'Please provide proper title, description, user_id and category_id'});
+    const {title, description, user_id, category_id, status_id} = req.body;
+    if(!title || !description || !user_id || !category_id || !status_id) {
+        return res.status(400).send({ error: true, message: 'Please provide proper title, description, user_id, category_id and status_id'});
     }
     try{
-        db.query('INSERT INTO tasks (title, description, user_id, category_id) VALUES (?, ?, ?, ?)', [title, description, user_id, category_id], (err, result, fields) => {
+        db.query('INSERT INTO tasks (title, description, user_id, category_id, status_id) VALUES (?, ?, ?, ?, ?)', [title, description, user_id, category_id, status_id], (err, result, fields) => {
             if (err) {
                 console.error('Error creating item:', err);
                 res.status(500).json({ message: 'Internal Server Error'});
@@ -66,12 +66,12 @@ router.get('/tasks', authenticateToken, (req, res) => {
 //UPDATE TASK
 router.put('/task/:id', authenticateToken, async (req, res) => {
     let task_id = req.params.id;
-    const {title, description, user_id, category_id} = req.body;
-    if(!task_id || !title || !description || !user_id || !category_id) {
-        return res.status(400).send({ error: user, message: 'Please provide proper title, description, user_id and category_id'});
+    const {title, description, user_id, category_id, status_id} = req.body;
+    if(!task_id || !title || !description || !user_id || !category_id || !status_id) {
+        return res.status(400).send({ error: user, message: 'Please provide proper title, description, user_id, category_id and status_id'});
     }
     try{
-        db.query('UPDATE tasks SET title = ?, description = ?, user_id = ?, category_id = ? WHERE id = ?', [title, description, user_id, category_id, task_id], (err, result, fields) => {
+        db.query('UPDATE tasks SET title = ?, description = ?, user_id = ?, category_id = ?, status_id = ? WHERE id = ?', [title, description, user_id, category_id, status_id, task_id], (err, result, fields) => {
             if (err) {
                 console.error('Error updating item:', err);
                 res.status(500).json({ message: 'Internal Server Error'});
